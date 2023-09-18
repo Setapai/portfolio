@@ -1,0 +1,256 @@
+{% include "./components/header.html" %}
+
+<!--Body-->
+<!--  Header  -->
+<div class="bg-gray-100">
+    <main class="container mx-auto h-full md:h-screen flex flex-col justify-center"
+          style="font-family: 'Poppins', sans-serif">
+        <div class="basis p-5 fade-in-left my-5">
+            <ul class="flex  items-center justify-center md:justify-start space-x-16">
+                <li>
+                    <a href="#"
+                       class="rounded-full px-5 py-3 shadow-lg hover:bg-gray-200 transition-all focus:shadow-inner"
+                       data-te-offcanvas-toggle
+                       data-te-target="#projectsCanvas"
+                       aria-controls="projectsCanvas"> Projects </a>
+                </li>
+                <li>
+                    <a href="#"
+                       class="rounded-full px-5 py-3 shadow-lg hover:bg-gray-200 transition-all focus:shadow-inner"
+                       data-te-offcanvas-toggle
+                       data-te-target="#expCanvas"
+                       aria-controls="expCanvas"> Experiences </a>
+                </li>
+            </ul>
+        </div>
+        <div class="w-full flex md:flex-row flex-col items-center p-16 md:p-0">
+            <div class="w-full flex flex-col items-center">
+                <!--Moon-->
+                <div class="basis relative px-16">
+                    <div id="face_image"
+                         class="bounce-in-top rounded-full p-32 bg-white shadow-xl z-10 relative bg-center bg-no-repeat bg-cover bg-[url({{user.image}})]">
+                    </div>
+                    <!--Top-->
+                    <div class="absolute top-0 bottom-0 left-0 right-0">
+                        <div class="fade-in-left rounded-full p-3 w-20 bg-slate-500 absolute top-10 left-1 z-10"></div>
+                        <div class="fade-in-left rounded-full p-3 w-24 bg-slate-500 absolute top-20 left-10 z-0"></div>
+                        <div class="fade-in-left rounded-full p-3 w-20 bg-slate-500 absolute top-32 left-0 z-10"></div>
+                        <!--Bottom-->
+                        <div class="fade-in-right rounded-full p-3 w-20 bg-slate-500 absolute bottom-10 right-16 z-10"></div>
+                        <div class="fade-in-right rounded-full p-3 w-20 bg-slate-500 absolute bottom-32 right-0 z-10"></div>
+                    </div>
+                </div>
+                <div class="basis text-center">
+                    <div class="my-5 focus-in-expand">
+                        <p class="text-2xl md:text-3xl " style="font-family: 'Permanent Marker', cursive">
+                            {{user.name}}</p>
+                        <p class="text-xl " style="">{{user.title}}</p>
+                        <p class="text-xl my-5">{{user.description}}</p>
+
+                    </div>
+                    <a class="text-3xl delay-200 transition-all focus-in-expand "
+                       data-te-placement="bottom"
+                       data-te-collapse-init
+                       href="#collapseExample"
+                       aria-expanded="false"
+                       onclick="onToggle()"
+                       aria-controls="collapseExample"
+                    >
+                        <ion-icon id="detailsExpander" class="animate-bounce" name="caret-down-outline"></ion-icon>
+                    </a>
+                    <!--Contact Details-->
+                    <div class="!visible hidden" id="collapseExample" data-te-collapse-item>
+                        <div class="block rounded-lg bg-transparent p-3 flex justify-center items-center flex-wrap">
+                            <!--Contact-->
+                            {% for contact in [user.contacts] %}
+                            <a href="https://wa.me/{{contact.contact_number}}"
+                               title="{{contact.platform}}"
+                               target="_blank"
+                               data-te-chip-init
+                               data-te-ripple-init
+                               class="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-xl transition-[opacity] duration-300 ease-linear hover:bg-{{contact.hover_color}}-400 hover:text-white active:bg-{{contact.hover_color}}-500 space-x-2">
+                                <ion-icon class="text-2xl" name="{{contact.icon}}"></ion-icon>
+                                <p>{{contact.contact_number}}</p>
+                            </a>
+                            {% endfor %}
+                            <!--email-->
+                            {% for email in [user.email] %}
+                            <a href="mailto:{{email.email}}"
+                               title="{{email.platform}}"
+                               data-te-chip-init
+                               data-te-ripple-init
+                               class="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-xl transition-[opacity] duration-300 ease-linear hover:bg-gray-300 focus:shadow-inner space-x-2">
+                                <ion-icon class="text-2xl" name="mail-open-outline"></ion-icon>
+                                <p>{{email.email}}</p>
+                            </a>
+                            {% endfor %}
+                            <!--cv-->
+                            <a href="download"
+                               target="_blank"
+                               data-te-chip-init
+                               data-te-ripple-init
+                               class="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-xl transition-[opacity] duration-300 ease-linear hover:bg-sky-400 hover:text-white active:bg-sky-500 space-x-2">
+                                <ion-icon class="text-2xl" name="document-attach-outline"></ion-icon>
+                                <p>Download CV</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Projects -->
+<div
+        class="invisible fixed bottom-0 left-0 right-0 z-[1045] flex h-3/4 max-h-full max-w-full translate-y-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm outline-none transition duration-300 ease-in-out [&[data-te-offcanvas-show]]:transform-none"
+        tabindex="-1"
+        id="projectsCanvas"
+        aria-labelledby="projectsCanvasLabel"
+        data-te-offcanvas-init>
+    <!--    Title-->
+    <div class="flex items-center justify-between p-4">
+        <h5
+                class="mb-0 font-semibold text-2xl text-center w-full"
+                style="font-family: 'Permanent Marker', cursive"
+                id="projectsCanvasLabel">
+            Projects
+        </h5>
+        <button
+                type="button"
+                class="box-content rounded-none border-none opacity-50 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                data-te-offcanvas-dismiss>
+      <span
+              class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6">
+          <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </span>
+        </button>
+    </div>
+    <!--    Body-->
+    <div class="small flex-grow overflow-y-auto p-4">
+        <div class="flex justify-center items-center space-x-5 flex-wrap">
+            <!--Background-->
+            {% for project in projects %}
+            <a href="{{project.url}}" target="_blank">
+                <div class="flex justify-center flex-wrap" style="font-family: 'Poppins', sans-serif">
+                <div class="max-w-xl">
+                    <div class="m-4 block rounded-lg bg-white hover:bg-gray-200 p-6 shadow-lg ">
+                        <!--Testimonial-->
+                        <div class="md:flex md:flex-row">
+                            <div class="mx-auto mb-6 flex w-36 items-center justify-center md:mx-0 md:w-full lg:mb-0">
+                                <img src="{{project.image}}"
+                                     class="rounded-full shadow-md"
+                                     alt="{{project.title}}"/>
+                            </div>
+                            <div class="md:ml-6">
+                                <p class="mb-6 font-light text-neutral-500 ">
+                                    {{project.description}}
+                                </p>
+                                <p class="mb-2 text-xl font-semibold text-neutral-800 ">
+                                    {{project.name}}
+                                </p>
+                                <p class="mb-0 font-semibold text-neutral-500 ">
+                                    {{project.title}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+
+<!-- References/Work Experiences -->
+<div
+        class="invisible fixed bottom-0 left-0 right-0 z-[1045] flex h-3/4 max-h-full max-w-full translate-y-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm outline-none transition duration-300 ease-in-out [&[data-te-offcanvas-show]]:transform-none"
+        tabindex="-1"
+        id="expCanvas"
+        aria-labelledby="expCanvasLabel"
+        data-te-offcanvas-init>
+    <!--    Title-->
+    <div class="flex items-center justify-between p-4">
+        <h5
+                class="mb-0 font-semibold text-2xl text-center w-full"
+                style="font-family: 'Permanent Marker', cursive"
+                id="expCanvasLabel">
+            Experiences
+        </h5>
+        <button
+                type="button"
+                class="box-content rounded-none border-none opacity-50 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                data-te-offcanvas-dismiss>
+      <span
+              class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-6 w-6">
+          <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </span>
+        </button>
+    </div>
+    <!--    Body-->
+    <div class="small flex-grow overflow-y-auto p-4 px-20">
+        <!--   expStart     -->
+        {% for work in work[0].type %}
+        <!--   Company     -->
+        <div class="basis">
+            <p class="text-3xl my-5" style="font-family: 'Permanent Marker', cursive">{{work}}</p>
+            <ol class="border-l border-neutral-300 md:flex md:justify-start md:gap-6 md:border-l-0 md:border-t">
+                <!--First item-->
+                {% for xp in experiences %}
+                {% if xp.type.lower() == work.lower() %}
+                <li>
+                    <div class="flex-start flex items-center pt-2 md:block md:pt-0">
+                        <div
+                                class="-ml-[5px] mr-3 h-[9px] w-[9px] rounded-full bg-neutral-300 md:-mt-[5px] md:ml-0 md:mr-0"></div>
+                        <p class="mt-2 text-sm text-neutral-500 ">
+                            {{xp.date_start | ctime  }} -
+                            {{xp.date_end | ctime }}
+                        </p>
+                        <p class="text-xs text-neutral-500">{{ xp.date_start | yservice(xp.date_end)  }}</p>
+                    </div>
+                    <div class="ml-4 mt-2 pb-5 md:ml-0">
+                        <h4 class=" text-xl font-semibold">{{xp.name}}</h4>
+                        <h4 class="mb-1.5 text-sm">{{xp.role}}</h4>
+                        <p class="mb-3 text-neutral-500">
+                            {{xp.description}}
+                        </p>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+            </ol>
+        </div>
+
+        <!--   Freelance     -->
+        {% endfor %}
+        <!--   expEnd     -->
+    </div>
+</div>
+
+<!--Body-->
+{% include "./components/footer.html" %}
+
